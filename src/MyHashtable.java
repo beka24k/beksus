@@ -91,5 +91,19 @@ public class MyHashtable<K, V> {
             }
         }return false;
     }
+    public K getKey(V value){
+        if(contains(value)){
+            for(int i=0;i<capacity;i++){
+                HashNode node=chain[i];
+                while(node!=null){
+                    if(node.value.equals(value)){
+                        return (K) node.key;
+                    }
+                    node=node.next;
+                }
+            }
+        }
+        return null;
+    }
 
 }
