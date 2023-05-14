@@ -105,5 +105,17 @@ public class MyHashtable<K, V> {
         }
         return null;
     }
+    public void counter(){
+        int count=0;
+        for(int i=0;i<capacity;i++){
+            HashNode node=chain[i];
+            while(node!=null){
+                count++;
+                node=node.next;
+            }
+            System.out.println(i+" bucket "+count+" elements");
+            count=0;
+        }
 
+    }
 }
