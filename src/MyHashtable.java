@@ -59,5 +59,26 @@ public class MyHashtable<K, V> {
         return null;
     }
 
+    public V remove(K key) {
+        int index = hash(key);
+        HashNode<K, V> node = chain[index];
+        V temp = null;
+        if (node != null && node.key.equals(key)) {
+            temp = node.value;
+            chain[index] = node.next;
+            size--;
+        } else {
+            while (node != null && node.next != null) {
+                if (node.next.key.equals(key)) {
+                    temp = node.next.value;
+                    node.next = node.next.next;
+                    size--;
+                    break;
+                }
+                node = node.next;
+            }
+        }
+        return temp;
+    }
 
 }
