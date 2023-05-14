@@ -18,6 +18,17 @@ public class MyTestingClass<K, V> {
         return result;
     }
 
+    public void tenThousandtest() {
+        MyHashtable<K, V> pipi = new MyHashtable<>();
+        for (int i = 0; i < 10000; i++) {
+            int x = random.nextInt(1000);
+            int y = random.nextInt(1000);
+            Temp key=new Temp(x,"Student"+y);
+            pipi.put((K) key.name, (V) key.id);
+        }
 
+        pipi.counter();
+
+    }
 
 }
