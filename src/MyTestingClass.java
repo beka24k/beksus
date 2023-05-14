@@ -30,5 +30,22 @@ public class MyTestingClass<K, V> {
         pipi.counter();
 
     }
+    public void tester(){
+        MyHashtable<Integer, String> pipi = new MyHashtable<>();
+        pipi.put(45,"fdngdgn");
+        pipi.put(5,"sdfgnf");
+        pipi.put(4,"fngdfgn");
+        pipi.put(42,"hfgh");
+        pipi.put(23,"dsfgs");
+        pipi.put(42,"dfgds");
+        pipi.put(124,"dsfg");
+        System.out.println(pipi.getKey("hfgh"));
+        System.out.println(pipi.get(4));
+        System.out.println(pipi.contains("dsfg"));
+        System.out.println(pipi.remove(5));
+        System.out.println(pipi.get(5));
+    }
+
+
 
 }
