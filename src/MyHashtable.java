@@ -27,5 +27,9 @@ public class MyHashtable<K, V> {
         }
     }
 
+    public int hash(K key) {
+        return Math.abs(key.hashCode() % capacity);
+    }
+
 
 }
