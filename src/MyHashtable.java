@@ -80,5 +80,16 @@ public class MyHashtable<K, V> {
         }
         return temp;
     }
+    public boolean contains(V value){
+        for(int i=0;i<capacity;i++){
+            HashNode node=chain[i];
+            while(node!=null){
+                if(node.value.equals(value)){
+                    return true;
+                }
+                node=node.next;
+            }
+        }return false;
+    }
 
 }
