@@ -1,4 +1,3 @@
-
 /**
  * MyHashtable is an implementation of a hash table data structure.
  * It uses chaining to handle collisions and supports insertion,
@@ -200,5 +199,104 @@ public class MyHashtable<K, V> {
             count = 0;
         }
 
+
     }
+
+    public boolean isEmpty() {
+        if (size == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean containsKey(K key) {
+        int index = hash(key);
+        HashNode node = chain[index];
+        while (node != null) {
+            if (node.key.equals(key)) {
+                return true;
+            }
+            node = node.next;
+        }
+        return false;
+    }
+
+    public V[] values() {
+        int counter = size - 1;
+        V[] array = (V[]) new Object[size];
+        for (int i = 0; i < capacity; i++) {
+            HashNode node = chain[i];
+            while (node != null) {
+                array[counter] = (V) node.value;
+                counter--;
+                node = node.next;
+            }
+        }
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        return array;
+    }
+
+    public void clear() {
+        for (int i = 0; i < capacity; i++) {
+            HashNode<K, V> node = chain[i];
+            chain[i] = null; // Remove the reference to the first node in the bucket
+            while (node != null) {
+                HashNode<K, V> nextNode = node.next;
+                node.next = null; // Remove the reference to the next node
+                node = nextNode; // Move to the next node
+            }
+        }
+        size = 0;
+    }
+
+    public void rehash(int newCapacity) {
+        int temp = capacity;
+        HashNode[] newChain = new HashNode[newCapacity];
+        capacity = newCapacity;
+        for (int i = 0; i < temp; i++) {
+            HashNode node = chain[i];
+            while (node != null) {
+                int newIndex = hash((K) node.key);
+                node.next = newChain[newIndex];
+                newChain[newIndex] = node;
+                node = node.next;
+            }
+        }
+        chain = newChain;
+    }
+
+    //defense
+    public void remove(K key, V oldvalue, V newValue) {
+        int index = hash(key);
+        HashNode node = chain[index];
+        while (node != null) {
+            if (node.value.equals(oldvalue)) {
+                node.value = newValue;
+                break;
+            }
+            if (!node.value.equals(oldvalue)) {
+                System.err.println("it is not value of this hashtable");
+                break;
+            }
+            node = node.next;
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < capacity; i++) {
+            sb.append("Bucket ").append(i).append(": ");
+            HashNode<K, V> node = chain[i];
+            while (node != null) {
+                sb.append("(").append(node.key).append(", ").append(node.value).append(") ");
+                node = node.next;
+            }
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
+
 }
